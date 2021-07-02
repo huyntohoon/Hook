@@ -16,13 +16,17 @@ const useBeforeLeave = (onBefore) => {
   };
   useEffect(() => {
     document.addEventListener("mouseleave", handle);
+    // componentDidMount => addEventListener
     return () => document.removeEventListener("mouseleave", handle);
+    // componentWillUnMount => removeEventListener
   });
 };
 
 export default function App() {
   const begForLife = () => console.log("Please don't leave");
+  // onBefore function create.
   useBeforeLeave(begForLife);
+  // useBeforeLeave => not return something
   return (
     <div className="App">
       <h1>hello</h1>

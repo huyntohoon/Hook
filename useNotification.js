@@ -3,26 +3,33 @@ import React, { useState, useEffect, useRef } from "react";
 
 const useNotification = (title, option) => {
   if (!("Notification" in window)) {
-      //Notification이 존재여부
+      //Notification이 존재여부 => 브라우저가 알림에 대한 지원을 하지 않는다면
     return;
   }
   const fireNotif = () => {
     if (Notification.permission !== "granted") {
-        //Notification의 허락이 없다면
+        //Notification의 허락을 이미 가지고 있는지 확인
+        //Notification의 권한이 현재 없다면
       Notification.requestPermission().then((permission) => {
+        //알림 허락 확인 함수 => then 실행, permission 매개 변수로 실행
         if (permission === "granted") {
+          // granted  == 허락이면, 실행
           new Notification(title, option);
         } else {
+          // 불허 => return
           return;
         }
       });
     } else {
+      //Notification의 허락을 이미 가지고 있음
       new Notification(title, option);
     }
   };
+  // fireNotif 실행
   return fireNotif;
 };
 export default function App() {
+  // tiggerNotif 라는 useNotification의 해당 매개변수를 가지는 객체 생성
   const tiggerNotif = useNotification("Click Button", {
     body: "Click Again!!"
   });

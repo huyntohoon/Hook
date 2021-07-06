@@ -10,7 +10,7 @@ const useNotification = (title, option) => {
     if (Notification.permission !== "granted") {
         //Notification의 허락을 이미 가지고 있는지 확인
         //Notification의 권한이 현재 없다면
-      Notification.requestPermission().then((permission) => {
+      Notification.requestPermission().then((permission) = > {
         //알림 허락 확인 함수 => then 실행, permission 매개 변수로 실행
         if (permission === "granted") {
           // granted  == 허락이면, 실행
